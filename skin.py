@@ -28,12 +28,19 @@ for condition_name, url in condition_urls.items():
     title_tag = soup.find('h1', class_='elementor-heading-title elementor-size-default')
     title = title_tag.text.strip() if title_tag else condition_name
 
-    # 📘 Get description
-    desc_div = soup.find('div', class_='elementor-widget-container')
+    # 📘 Get description from a specific data-id container
     description = 'No description found'
-    if desc_div:
-        # Strip any nested tags and extract visible text
-        description = desc_div.get_text(separator=' ', strip=True)
+
+    # Find the container using the data-id attribute
+    target_div = soup.find('div', attrs={'data-id': '316efeba'})
+
+    if target_div:
+        # Find the elementor-widget-container inside it
+        desc_div = target_div.find('div', class_='elementor-widget-container')
+        
+        if desc_div:
+            description = desc_div.get_text(separator=' ', strip=True)
+
 
     # 🛍️ Find recommended products
     product_grid = soup.find('div', class_='elementor-loop-container elementor-grid')
