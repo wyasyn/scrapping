@@ -15,7 +15,7 @@ def get_recommended_products(data, condition_query):
     return []  # Return empty list if condition not found
 
 # Example condition search
-condition = "Aging"
+condition = "aging"
 recommended = get_recommended_products(json_data, condition)
 
 for product in recommended:
